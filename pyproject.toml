@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools==80.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src"]
+
+[project]
+name = "test_phpMyAdmin_scraping"
+version = "0.1.0"
+description = "Парсинг таблиц в интерфейсе phpMyAdmin по HTTP."
+requires-python = ">=3.13"
+dependencies = [
+    "requests>=2.32",
+    "beautifulsoup4>=4.13",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.12",
+    "pre_commit>=4.2",
+    "pipdeptree>=2.28",
+]
+
+[tool.ruff.lint]
+select = ["I", "E", "F", "ANN"]
+exclude = ["venv", ".venv", "__pycache__"]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 79
