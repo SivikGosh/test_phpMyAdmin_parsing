@@ -7,12 +7,13 @@ include = ["src"]
 
 [project]
 name = "test_phpMyAdmin_scraping"
-version = "0.1.1"
+version = "0.1.2"
 description = "Парсинг таблиц в интерфейсе phpMyAdmin по HTTP."
 requires-python = ">=3.13"
 dependencies = [
     "requests>=2.32",
     "beautifulsoup4>=4.13",
+    "python-dotenv>=1.1",
 ]
 
 [project.optional-dependencies]
