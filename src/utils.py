@@ -1,5 +1,6 @@
 from re import compile
 from typing import Dict
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from requests import Session
@@ -37,3 +38,12 @@ def get_page_url(
         .find('a', string=compile(element_name))
         .get('href')
     )
+
+
+def parse_table_url(url: str, pos: str) -> None:
+    parsed = urlparse(url)
+    query = parse_qs(parsed.query)
+    query['pos'][0] = int(query['pos'][0]) + pos
+    new_query = urlencode(query, doseq=True)
+    new_url = urlunparse(parsed._replace(query=new_query))
+    return new_url

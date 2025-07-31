@@ -12,7 +12,7 @@ class TablePage:
         self.rows_num = self._get_selected_rows_num()
     
     def _get_table(self) -> str:
-        return self.page.find(attrs={'name': 'resultsForm'}).find('table')
+        return self.page.find(attrs={'class': 'data'})
     
     def _get_titles(self) -> List[str]:
         return list(
@@ -42,3 +42,6 @@ class TablePage:
                 dict(zip(self.titles, self.rows[i:i+t]))
             )
         return result
+
+    def is_page_has_rows(self) -> None:
+        return True if len(self.rows) > 0 else False
