@@ -20,7 +20,7 @@ def main() -> None:
     with Session() as s:
 
         login_page = get_page_soup(s, Config.url)
-        payload = collect_payload(login_page)
+        payload = collect_payload(login_page, Config.login, Config.password)
 
         main = get_page_soup(s, f'{Config.url}/index.php?route=/', payload)
         db_url = get_page_url(main, 'pma_navigation_tree_content', Config.db)

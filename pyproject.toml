@@ -7,7 +7,7 @@ include = ["src"]
 
 [project]
 name = "test_phpMyAdmin_scraping"
-version = "0.3.0"
+version = "1.0.0"
 description = "Парсинг таблиц в интерфейсе phpMyAdmin по HTTP."
 requires-python = ">=3.13"
 dependencies = [

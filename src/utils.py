@@ -1,11 +1,10 @@
+from argparse import ArgumentParser, Namespace
 from re import compile
 from typing import Dict
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from requests import Session
-
-from .settings import Config
 
 
 def get_page_soup(
@@ -17,11 +16,15 @@ def get_page_soup(
     return BeautifulSoup(page.text, 'html.parser')
 
 
-def collect_payload(page: BeautifulSoup) -> Dict[str, str]:
+def collect_payload(
+    page: BeautifulSoup,
+    login: str,
+    password: str
+) -> Dict[str, str]:
     return {
         'set_session': page.find(attrs={'name': 'set_session'})['value'],
-        'pma_username': Config.login,
-        'pma_password': Config.password,
+        'pma_username': login,
+        'pma_password': password,
         'server': 1,
         'token': page.find(attrs={'name': 'token'})['value'],
     }
@@ -47,3 +50,10 @@ def parse_table_url(url: str, pos: str) -> None:
     new_query = urlencode(query, doseq=True)
     new_url = urlunparse(parsed._replace(query=new_query))
     return new_url
+
+
+def parse_args() -> Namespace:
+    parser = ArgumentParser(description='Парсинг phpMyAdmin таблицы')
+    parser.add_argument('--db', required=True, help='Имя базы данных')
+    parser.add_argument('--table', required=True, help='Имя таблицы')
+    return parser.parse_args()
